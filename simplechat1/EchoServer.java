@@ -49,6 +49,23 @@ public class EchoServer extends AbstractServer
     (Object msg, ConnectionToClient client)
   {
     System.out.println("Message received: " + msg + " from " + client);
+    
+    //Handles Commands From Client
+    if (msg.toString().startsWith("#")) {
+    	//stores command from client
+    	String command = msg.toString();
+    	//like in android studio for handling multiple cases, ie SimpleCalculator
+    	//Each case will describe each command
+    	switch(command) {
+    	case "#numbers":
+    		getNumberOfClients();
+    	case "#all_users":
+    		//from abstract class, stops listening for new connections
+    		getClientConnections();
+    	case "#kill":
+    	}
+    }
+    
     this.sendToAllClients(msg);
   }
     
@@ -70,7 +87,30 @@ public class EchoServer extends AbstractServer
   {
     System.out.println
       ("Server has stopped listening for connections.");
+    
   }
+  
+  /*
+   * Modified for E49 c)
+   * Override method called each time a client disconnects.
+   */
+  public void clientDisconnected(ConnectionToClient client) {
+      String message = ("Client has disconnected");
+      this.sendToAllClients(message);
+      System.out.println(message);
+  }
+
+  /*
+   * Modified for E49 c)
+   * Hook method called each time an exception is thrown in a
+   * ConnectionToClient thread.
+   */
+  public void clientException(ConnectionToClient client, Throwable exception) {
+      String message = ("Client has logged off");
+      this.sendToAllClients(message);
+      System.out.println(message);
+  }
+  
   
   //Class methods ***************************************************
   
