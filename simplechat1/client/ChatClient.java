@@ -66,7 +66,25 @@ public class ChatClient extends AbstractClient
    */
   public void handleMessageFromClientUI(String message)
   {
-    try
+	  
+	//Handles Commands From Client
+	if (message.toString().startsWith("#")) {
+		if (message.toString().contains("alias")) {
+			int aliasStartIndex = message.indexOf("<");
+			int aliasEndIndex = message.indexOf(">");
+			CharSequence my_new_alias = message.toString().subSequence((aliasStartIndex + 1), (aliasEndIndex - 1));
+		}
+	//stores command from client
+	String command = message.toString();
+	//like in android studio for handling multiple cases, ie SimpleCalculator
+	//Each case will describe each command
+	switch(command) {
+	case ("#alias"):
+	    	break;
+	
+	    	}
+	}
+	else try
     {
       sendToServer(message);
     }
@@ -77,6 +95,25 @@ public class ChatClient extends AbstractClient
       quit();
     }
   }
+  
+  /**
+   * Modified for E49 a)
+   */
+  @Override
+  public void connectionClosed() {
+      System.out.println("Connection Closed to Server.");
+  }
+
+  /**
+   * Modified for E49 a)
+   */
+  @Override
+  public void connectionException(Exception exception) {
+      System.out.println("Sever has stoped listening for connections, disconnecting");
+      quit();
+  }
+
+  
   
   /**
    * This method terminates the client.
