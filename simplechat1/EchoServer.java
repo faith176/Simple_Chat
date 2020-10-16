@@ -59,10 +59,13 @@ public class EchoServer extends AbstractServer
     	switch(command) {
     	case "#numbers":
     		getNumberOfClients();
+    		break;
     	case "#all_users":
     		//from abstract class, stops listening for new connections
     		getClientConnections();
+    		break;
     	case "#kill":
+    		break;
     	}
     }
     
