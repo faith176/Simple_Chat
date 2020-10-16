@@ -101,6 +101,7 @@ public class ClientConsole implements ChatIF
   //Class methods ***************************************************
   
   /**
+   * Changed for E49 b) F.A
    * This method is responsible for the creation of the Client UI.
    *
    * @param args[0] The host to connect to.

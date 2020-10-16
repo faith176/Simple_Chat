@@ -67,6 +67,7 @@ public class EchoServer extends AbstractServer
     	case "#kill":
     		break;
     	}
+    	
     }
     
     this.sendToAllClients(msg);
@@ -88,29 +89,26 @@ public class EchoServer extends AbstractServer
    */
   protected void serverStopped()
   {
-    System.out.println
-      ("Server has stopped listening for connections.");
+    System.out.println ("Server has stopped listening for connections.");
     
   }
   
   /*
-   * Modified for E49 c)
+   * Changed for E49 c) F.A
    * Override method called each time a client disconnects.
    */
   public void clientDisconnected(ConnectionToClient client) {
-      String message = ("Client has disconnected");
-      this.sendToAllClients(message);
+      String message = ("Client " + client + " has disconnected");
       System.out.println(message);
   }
 
   /*
-   * Modified for E49 c)
+   * Changed for E49 c) F.A
    * Hook method called each time an exception is thrown in a
    * ConnectionToClient thread.
    */
   public void clientException(ConnectionToClient client, Throwable exception) {
-      String message = ("Client has logged off");
-      this.sendToAllClients(message);
+      String message = ("Client " + client + " has logged off");
       System.out.println(message);
   }
   

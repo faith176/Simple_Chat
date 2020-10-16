@@ -81,7 +81,6 @@ public class ChatClient extends AbstractClient
 	switch(command) {
 	case ("#alias"):
 	    	break;
-	
 	    	}
 	}
 	else try
@@ -97,20 +96,22 @@ public class ChatClient extends AbstractClient
   }
   
   /**
-   * Modified for E49 a)
+   * Modified for E49 a) F.A
    */
   @Override
   public void connectionClosed() {
-      System.out.println("Connection Closed to Server.");
+      //System.out.println("Connection Closed to Server.");
+      clientUI.display("Connection Closed to Server.");
   }
 
   /**
-   * Modified for E49 a)
+   * Modified for E49 a) F.A
    */
   @Override
   public void connectionException(Exception exception) {
-      System.out.println("Sever has stoped listening for connections, disconnecting");
-      quit();
+      //System.out.println("Sever has stoped listening for connections, disconnecting");
+      clientUI.display("Sever has stoped listening for connections, disconnecting");
+      System.exit(0);
   }
 
   
