@@ -110,7 +110,7 @@ public class ChatClient extends AbstractClient
   @Override
   public void connectionException(Exception exception) {
       //System.out.println("Sever has stoped listening for connections, disconnecting");
-      clientUI.display("Sever has stoped listening for connections, disconnecting");
+      clientUI.display("Client has stoped listening for connections, disconnecting");
       System.exit(0);
   }
 
