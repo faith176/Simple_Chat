@@ -48,15 +48,22 @@ public class EchoServer extends AbstractServer
   public void handleMessageFromClient
     (Object msg, ConnectionToClient client)
   {
-    System.out.println("Message received: " + msg + " from " + client);
+	if (client.getInfo("alias") != null) System.out.println("Message received: " + msg + " from " + client.getInfo("alias"));
+	else System.out.println("Message received: " + msg + " from " + client);
     
+    // Modified for E50
     //Handles Commands From Client
     if (msg.toString().startsWith("#")) {
     	//stores command from client
     	String command = msg.toString();
     	//like in android studio for handling multiple cases, ie SimpleCalculator
     	//Each case will describe each command
-    	switch(command) {
+    	switch(command.split(" ")[0]) {
+    	case "#alias":
+    		// Set client alias
+    		client.setInfo("alias", command.substring(command.indexOf(' ') + 1));
+    		System.out.println(String.format("Set %s to alias %s", client, client.getInfo("alias")));
+    		break;
     	case "#numbers":
     		getNumberOfClients();
     		break;
@@ -68,9 +75,9 @@ public class EchoServer extends AbstractServer
     		break;
     	}
     	
+    } else {
+    	this.sendToAllClients(msg);
     }
-    
-    this.sendToAllClients(msg);
   }
     
   /**
@@ -103,7 +110,7 @@ public class EchoServer extends AbstractServer
   }
   
   /*
-   * Change for E49 c)
+   * Change for E49 c) EP
    * Override method called each time a client connects
    */
   @Override

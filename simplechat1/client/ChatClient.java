@@ -26,6 +26,11 @@ public class ChatClient extends AbstractClient
    * the display method in the client.
    */
   ChatIF clientUI; 
+  
+  /**
+   * The client's alias
+   */
+  String alias;
 
   
   //Constructors ****************************************************
@@ -36,13 +41,16 @@ public class ChatClient extends AbstractClient
    * @param host The server to connect to.
    * @param port The port number to connect on.
    * @param clientUI The interface type variable.
+   * @param alias The Alias to use for the client
    */
-  
-  public ChatClient(String host, int port, ChatIF clientUI) 
+  // Changed for E50) EP
+  // Add alias support to constructor
+  public ChatClient(String host, int port, ChatIF clientUI, String alias) 
     throws IOException 
   {
     super(host, port); //Call the superclass constructor
     this.clientUI = clientUI;
+    this.alias = alias;
     openConnection();
   }
 
@@ -114,7 +122,21 @@ public class ChatClient extends AbstractClient
       System.exit(0);
   }
 
-  
+  /**
+   * Modified for E50) EP
+   */  
+  @Override
+  public void connectionEstablished() {
+	  // Super hacky and probably a better way to do this
+	  // If an alias has been set, automatically run a #alias command
+	  if (!alias.isBlank())
+		try {
+			sendToServer(String.format("#alias %s", alias));
+		} catch (IOException e) {
+			clientUI.display("Could not set alias");
+			quit();
+		}
+  }
   
   /**
    * This method terminates the client.
