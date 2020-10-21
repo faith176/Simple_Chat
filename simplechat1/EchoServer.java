@@ -101,6 +101,16 @@ public class EchoServer extends AbstractServer
       String message = ("Client " + client + " has disconnected");
       System.out.println(message);
   }
+  
+  /*
+   * Change for E49 c)
+   * Override method called each time a client connects
+   */
+  @Override
+  public void clientConnected(ConnectionToClient client) {
+	  String message = String.format("Client %s has connected", client);
+	  System.out.println(message);
+  }
 
   /*
    * Changed for E49 c) F.A
