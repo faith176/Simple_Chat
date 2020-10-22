@@ -51,7 +51,7 @@ public class EchoServer extends AbstractServer
 	if (client.getInfo("alias") != null) System.out.println("Message received: " + msg + " from " + client.getInfo("alias"));
 	else System.out.println("Message received: " + msg + " from " + client);
     
-    // Modified for E50
+    // Modified for E50 and E49
     //Handles Commands From Client
     if (msg.toString().startsWith("#")) {
     	//stores command from client
@@ -65,11 +65,16 @@ public class EchoServer extends AbstractServer
     		System.out.println(String.format("Set %s to alias %s", client, client.getInfo("alias")));
     		break;
     	case "#numbers":
-    		getNumberOfClients();
+    		int numOfClients = getNumberOfClients();
+    		String message = ("Current number of clients connected is " + numOfClients);
+    		System.out.println(message);
+    		sendToAllClients(message);
+    		
     		break;
     	case "#all_users":
-    		//from abstract class, stops listening for new connections
-    		getClientConnections();
+    		Thread[] users = getClientConnections();
+    		String message2 = ("Current clients connected is " + users.toString());
+    		sendToAllClients(message2);
     		break;
     	case "#kill":
     		break;
