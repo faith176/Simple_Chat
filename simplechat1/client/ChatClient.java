@@ -74,24 +74,7 @@ public class ChatClient extends AbstractClient
    */
   public void handleMessageFromClientUI(String message)
   {
-	  
-	//Handles Commands From Client
-	if (message.toString().startsWith("#")) {
-		if (message.toString().contains("alias")) {
-			int aliasStartIndex = message.indexOf("<");
-			int aliasEndIndex = message.indexOf(">");
-			CharSequence my_new_alias = message.toString().subSequence((aliasStartIndex + 1), (aliasEndIndex - 1));
-		}
-	//stores command from client
-	String command = message.toString();
-	//like in android studio for handling multiple cases, ie SimpleCalculator
-	//Each case will describe each command
-	switch(command) {
-	case ("#alias"):
-	    	break;
-	    	}
-	}
-	else try
+	try
     {
       sendToServer(message);
     }
