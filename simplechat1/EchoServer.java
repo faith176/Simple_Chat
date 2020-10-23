@@ -85,6 +85,21 @@ public class EchoServer extends AbstractServer
     		sendToAllClients(message2);
     		break;
     	case "#kill":
+    		// Get all connected clients
+    		ConnectionToClient[] clients = (ConnectionToClient[]) getClientConnections();
+    		// Check for matching client
+    		for (ConnectionToClient c : clients) {
+    			if (c.getInfo("alias") != null) {
+    				if (c.getInfo("alias").equals(command.substring(command.indexOf(' ') + 1))) {
+    					// We have a match, kill it
+    					try {
+							c.close();
+							System.out.println(String.format("Client %s killed", command.substring(command.indexOf(' ') + 1)));
+						} catch (IOException e) {} // Ignore any exceptions
+    					
+    				}
+    			}
+    		}
     		break;
     	}
     	
