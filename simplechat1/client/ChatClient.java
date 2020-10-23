@@ -70,7 +70,7 @@ public class ChatClient extends AbstractClient
   /**
    * This method handles all data coming from the UI            
    *
-   * E50) F.A
+   * Modified for E50) F.A
    * @param message The message from the UI.    
    */
   public void handleMessageFromClientUI(String message) {
@@ -84,15 +84,6 @@ public class ChatClient extends AbstractClient
 			this.alias = my_new_alias;
 			System.out.println("You updated alias is: " + this.alias);
 		}
-	//stores command from client
-	String command = message.toString();
-	//like in android studio for handling multiple cases, ie SimpleCalculator
-	//Each case will describe each command
-//	switch(command) {
-//	case ("#alias"):
-//		;
-//	    	break;
-//	    	}
 	}
 	else try
   {
