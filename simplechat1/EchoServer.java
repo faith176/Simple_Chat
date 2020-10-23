@@ -4,6 +4,7 @@
 
 import java.io.*;
 import ocsf.server.*;
+import java.util.Arrays;
 
 /**
  * This class overrides some of the methods in the abstract 
@@ -66,14 +67,19 @@ public class EchoServer extends AbstractServer
     		break;
     	case "#numbers":
     		int numOfClients = getNumberOfClients();
-    		String message = ("Current number of clients connected is " + numOfClients);
+    		String message = ("Current number of clients connected is: " + numOfClients);
     		System.out.println(message);
     		sendToAllClients(message);
     		
     		break;
     	case "#all_users":
+    		String result = "";
+    		//returns an array of instances of the connection to client, need to put alias in here somehow
     		Thread[] users = getClientConnections();
-    		String message2 = ("Current clients connected is " + users.toString());
+    		for (int i = 0; i< (int)getNumberOfClients(); i++) {
+    			result = result + (users[i].getId()) +", ";
+    		}
+    		String message2 = ("Current clients connected are: " + result);
     		sendToAllClients(message2);
     		break;
     	case "#kill":
