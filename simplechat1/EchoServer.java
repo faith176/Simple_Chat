@@ -86,17 +86,16 @@ public class EchoServer extends AbstractServer
     		break;
     	case "#kill":
     		// Get all connected clients
-    		ConnectionToClient[] clients = (ConnectionToClient[]) getClientConnections();
+    		Thread[] clients = getClientConnections();
     		// Check for matching client
-    		for (ConnectionToClient c : clients) {
-    			if (c.getInfo("alias") != null) {
-    				if (c.getInfo("alias").equals(command.substring(command.indexOf(' ') + 1))) {
+    		for (Thread c : clients) {
+    			if (((ConnectionToClient) c).getInfo("alias") != null) {
+    				if (((ConnectionToClient) c).getInfo("alias").equals(command.substring(command.indexOf(' ') + 1))) {
     					// We have a match, kill it
     					try {
-							c.close();
+							((ConnectionToClient) c).close();
 							System.out.println(String.format("Client %s killed", command.substring(command.indexOf(' ') + 1)));
-						} catch (IOException e) {} // Ignore any exceptions
-    					
+						} catch (Exception e) {} // Ignore any exceptions					
     				}
     			}
     		}
@@ -133,7 +132,10 @@ public class EchoServer extends AbstractServer
    * Override method called each time a client disconnects.
    */
   public void clientDisconnected(ConnectionToClient client) {
-      String message = ("Client " + client + " has disconnected");
+	  String c = "";
+	  if (client.getInfo("alias") != null) c = (String) client.getInfo("alias");
+	  else c = client.toString();
+      String message = ("Client " + c + " has disconnected");
       System.out.println(message);
   }
   
@@ -153,8 +155,12 @@ public class EchoServer extends AbstractServer
    * ConnectionToClient thread.
    */
   public void clientException(ConnectionToClient client, Throwable exception) {
-      String message = ("Client " + client + " has logged off");
+	  String c = "";
+	  if (client.getInfo("alias") != null) c = (String) client.getInfo("alias");
+	  else c = client.toString();
+      String message = ("Client " + c + " has exited due to an error");
       System.out.println(message);
+      exception.printStackTrace();
   }
   
   

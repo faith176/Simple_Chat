@@ -78,25 +78,14 @@ public class ChatClient extends AbstractClient
 	if (message.toString().startsWith("#")) {
 		if (message.toString().contains("alias")) {
 			System.out.println("\n" +"Accepting command #alias");
-			int aliasStartIndex = message.indexOf("<");
-			int aliasEndIndex = message.indexOf(">");
-			String my_new_alias = (String)message.toString().subSequence((aliasStartIndex + 1), (aliasEndIndex));
+			String my_new_alias = message.toString().substring(message.toString().indexOf(" "));
 			this.alias = my_new_alias;
 			System.out.println("You updated alias is: " + this.alias);
-		} else
-			try {
-				sendToServer(message);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	}
-	else try
-  {
+		}
+	} 
+	try {
     sendToServer(message);
-  }
-  catch(IOException e)
-  {
+  } catch(IOException e) {
     clientUI.display
       ("Could not send message to server.  Terminating client.");
     quit();
