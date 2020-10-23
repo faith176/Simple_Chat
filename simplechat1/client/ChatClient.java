@@ -83,7 +83,13 @@ public class ChatClient extends AbstractClient
 			String my_new_alias = (String)message.toString().subSequence((aliasStartIndex + 1), (aliasEndIndex));
 			this.alias = my_new_alias;
 			System.out.println("You updated alias is: " + this.alias);
-		}
+		} else
+			try {
+				sendToServer(message);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	else try
   {

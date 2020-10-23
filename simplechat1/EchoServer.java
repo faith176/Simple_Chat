@@ -77,7 +77,9 @@ public class EchoServer extends AbstractServer
     		//returns an array of instances of the connection to client, need to put alias in here somehow
     		Thread[] users = getClientConnections();
     		for (int i = 0; i< (int)getNumberOfClients(); i++) {
-    			result = result + (users[i].getId()) +", ";
+    			ConnectionToClient user = (ConnectionToClient) users[i];
+    			if (user.getInfo("alias") != null)  result += user.getInfo("alias") + ", ";
+    			else result += user + ", ";
     		}
     		String message2 = ("Current clients connected are: " + result);
     		sendToAllClients(message2);
