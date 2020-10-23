@@ -70,20 +70,40 @@ public class ChatClient extends AbstractClient
   /**
    * This method handles all data coming from the UI            
    *
+   * E50) F.A
    * @param message The message from the UI.    
    */
-  public void handleMessageFromClientUI(String message)
+  public void handleMessageFromClientUI(String message) {
+	//Handles Commands From Client
+	if (message.toString().startsWith("#")) {
+		if (message.toString().contains("alias")) {
+			System.out.println("\n" +"Accepting command #alias");
+			int aliasStartIndex = message.indexOf("<");
+			int aliasEndIndex = message.indexOf(">");
+			String my_new_alias = (String)message.toString().subSequence((aliasStartIndex + 1), (aliasEndIndex));
+			this.alias = my_new_alias;
+			System.out.println("You updated alias is: " + this.alias);
+		}
+	//stores command from client
+	String command = message.toString();
+	//like in android studio for handling multiple cases, ie SimpleCalculator
+	//Each case will describe each command
+//	switch(command) {
+//	case ("#alias"):
+//		;
+//	    	break;
+//	    	}
+	}
+	else try
   {
-	try
-    {
-      sendToServer(message);
-    }
-    catch(IOException e)
-    {
-      clientUI.display
-        ("Could not send message to server.  Terminating client.");
-      quit();
-    }
+    sendToServer(message);
+  }
+  catch(IOException e)
+  {
+    clientUI.display
+      ("Could not send message to server.  Terminating client.");
+    quit();
+  }
   }
   
   /**
