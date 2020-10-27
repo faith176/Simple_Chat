@@ -65,7 +65,7 @@ public class EchoServer extends AbstractServer
     		client.setInfo("alias", command.substring(command.indexOf(' ') + 1));
     		System.out.println(String.format("Set %s to alias %s", client, client.getInfo("alias")));
     		break;
-    	case "#numbers":
+    	case "#number":
     		int numOfClients = getNumberOfClients();
     		String message = ("Current number of clients connected is: " + numOfClients);
     		System.out.println(message);
