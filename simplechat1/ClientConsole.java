@@ -115,10 +115,24 @@ public class ClientConsole implements ChatIF
 
     try
     {
-      host = args[0];
-      port = Integer.parseInt(args[1]);
+    //checks for host input from command line, else assigns default value
+      if (args.length >= 1) {
+    	  host = args[0];
+      } else {
+    	  host = "localhost";
+      }
+      
+    //checks for port input from command line, else assigns default value
+      if (args.length >= 2) {
+    	  port = Integer.parseInt(args[1]);
+      } else {
+    	  port = DEFAULT_PORT;
+      }
+      
+      //checks for alias input from command line, else assigns no value for alias
       if (args.length == 3) alias = args[2];
     }
+    //only throws this if too many inputs are given
     catch(ArrayIndexOutOfBoundsException e)
     {
       host = "localhost";
