@@ -97,7 +97,6 @@ public class ChatClient extends AbstractClient
    */
   @Override
   public void connectionClosed() {
-      //System.out.println("Connection Closed to Server.");
       clientUI.display("Connection Closed to Server.");
   }
 
@@ -106,8 +105,7 @@ public class ChatClient extends AbstractClient
    */
   @Override
   public void connectionException(Exception exception) {
-      //System.out.println("Sever has stoped listening for connections, disconnecting");
-      clientUI.display("Client has stoped listening for connections, disconnecting");
+      clientUI.display("Sever has disconnected, client will now shut down");
       System.exit(0);
   }
 
